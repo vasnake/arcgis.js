@@ -1,0 +1,77 @@
+<div class="agsdirLayerContainer"
+    style="overflow: hidden; padding-top:10px;">
+    <table cellpadding="0" cellspacing="0" style="width:100%"><tbody>
+    <tr>
+	<td style="width:85%">
+    <div baseClass="agsdirLayerName" style="width:100%"
+        data-dojo-type="dijit/form/DropDownButton"
+        data-dojo-attach-point='itemNameWidget'>
+        <span>Layer name</span>
+
+<div class="agsdirLayerTooltip"
+            data-dojo-type="dijit/TooltipDialog"> 
+            <div class="tooltipText" data-dojo-attach-point='itemTitle' style="float: left; font-weight: 600;">
+				Title or Name
+			</div>
+			<div align="right" >
+			<button data-dojo-type="dijit/form/Button" type="submit" >x</button>
+			</div>
+            <div class="agsdirLayerPreview libTVLayerTile"
+                data-dojo-attach-point='itemPreview' style="width: 150px; height: 100px; float: left">
+                <img src="" />
+            </div>
+                <div class="tooltipLink" data-dojo-attach-event='onclick: onClickAdd' style="padding-top:6px;">
+                    <a href="javascript:void(0)" style="padding-left:10px;" >Добавить к карте</a>
+                </div>
+                <div class="tooltipLink" data-dojo-attach-point='itemServiceLink'  style="padding-top:6px;">
+                    <a href="">Свойства службы</a>
+                </div>
+                <div class="tooltipLink" data-dojo-attach-event='onclick: onClickSetBasemap'  style="padding-top:6px;">
+                    <a href="javascript:void(0)" style="padding-left:10px;">Использовать как</a>
+                </div>
+				<div class="tooltipLink" data-dojo-attach-event='onclick: onClickSetBasemap'>
+                    <a href="javascript:void(0)" style="padding-left:10px;">подложку</a>
+                </div>
+			<div style="clear: both;"></div>
+            <div class="agsdirLayerInfo tooltipText" data-dojo-attach-point='itemAuthor' style="padding-top:6px;">
+			Author
+			</div>
+            <div class="agsdirLayerInfo tooltipText" data-dojo-attach-point='itemDescr' style="padding-top:6px;">
+			Description
+			</div>			
+            </div>
+			<div class="agsdirLayerFolder" data-dojo-attach-point='itemFolder'>
+				Layer folder
+			</div>
+	
+	</div>     <!--     agsdirLayerTooltip TooltipDialog
+
+Название
+картинка            Добавить к карте
+                    Свойства службы
+                    Использовать как подложку
+Автор:      АлГИС
+Описание:   АРМ Автобусные маршруты
+        -->
+
+    </div> <!-- agsdirLayerName itemNameWidget DropDownButton -->
+	</td>
+	<td  style="width:15%">
+    <button class="layerAddButton"
+        data-dojo-type="dijit/form/Button"
+        data-dojo-attach-point='itemAddButton'
+        data-dojo-props="showLabel: true"
+        type="button">
+        Добавить
+    </button>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" align="left" >
+
+	</td>
+	</tr>
+	</tbody></table>
+
+
+</div>

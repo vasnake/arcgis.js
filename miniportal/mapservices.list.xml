@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+# -*- mode: xml; coding: utf-8 -*-
+# (c) mp@allgis.org
+-->
+
+<!--
+	Воронеж
+-->
+<Layers>
+	<Layer type="ArcGISDynamicMapServiceLayer"
+		id="AdmTerUnits"
+		name="Административные образования"
+		topic="Внутренние службы Орла"
+		preview="http://cgis.allgis.org/arcgis/rest/services/Административные_образования/MapServer/export?f=image&amp;format=png24&amp;size=200,150&amp;bbox=3905092.5362889897,6790885.738524785,4209824.534107985,7104536.7216458">
+		http://cgis.allgis.org/arcgis/rest/services/Административные_образования/MapServer
+	</Layer>	
+	<Layer type="ArcGISDynamicMapServiceLayer"
+		id="localities"
+		name="Населенные пункты"
+		topic="Внутренние службы Орла"
+		preview="http://cgis.allgis.org/arcgis/rest/services/Населенные_пункты/MapServer/export?f=image&amp;format=png24&amp;size=200,150&amp;bbox=3905092.5362889897,6790885.738524785,4209824.534107985,7104536.7216458">
+		http://cgis.allgis.org/arcgis/rest/services/Населенные_пункты/MapServer
+	</Layer>
+	<Layer type="ArcGISDynamicMapServiceLayer"
+		id="deposits"
+		name="Месторождения"
+		topic="Внутренние службы Орла"
+		preview="http://cgis.allgis.org/arcgis/rest/services/Месторождения/MapServer/export?f=image&amp;format=png24&amp;size=200,150&amp;bbox=3905092.5362889897,6790885.738524785,4209824.534107985,7104536.7216458">
+		http://cgis.allgis.org/arcgis/rest/services/Месторождения/MapServer
+	</Layer>	
+	<Layer type="ArcGISDynamicMapServiceLayer"
+		id="CadastreNew/Cadastre"
+		name="Росреестр"
+		topic="Внешние службы Росреестра"
+		preview="http://maps.rosreestr.ru/ArcGIS/rest/services/CadastreNew/Cadastre/MapServer/export?f=image&amp;format=png24&amp;size=200,150&amp;bbox=2202505.216728439,4496059.73858327,14987416.70391851,14752478.981788715">
+		http://maps.rosreestr.ru/ArcGIS/rest/services/CadastreNew/Cadastre/MapServer
+	</Layer>
+	<Layer type="ArcGISDynamicMapServiceLayer"
+		id="VRN84"
+		name="Воронежская область"
+		topic="Внешние службы Воронежа"
+		preview="http://map.govvrn.ru/arcgis/rest/services/VRN84/MapServer/export?f=image&amp;format=png24&amp;size=200,150&amp;bbox=4420588.792456433,6628838.239399628,4431632.755269857,6636878.8118976215">
+		http://map.govvrn.ru/arcgis/rest/services/VRN84/MapServer
+	</Layer>
+	
+</Layers>

@@ -1,0 +1,44 @@
+<div id="agsDirLayoutContainer" data-dojo-type="dijit/layout/LayoutContainer" data-dojo-props="design:'headline'">
+
+    <div id="agsDirTopPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+        <div id="agsdirTitleContainer">
+            <div style="clear:both; height:1px;"></div>
+        </div>
+		<div id="agsdirURLform" data-dojo-type="dijit/form/Form">
+			<script type="dojo/on" data-dojo-event="submit">
+				console.log('agsdirURLform.submit');
+				return false;
+			</script>
+<!-- текстовое поле "URL-адрес |cgis.allgis.org (arcgis/rest/services)       |" -->
+        <table cellpadding="0" cellspacing="0" style="width:100%"><tbody>
+            <tr >
+                <td colspan="2">
+                    <input name="agsdirURLtb" id="agsdirURLtb" type="text" style="width:100%"
+                        value=""
+                        vvalue="maps.rosreestr.ru"
+                        data-dojo-type="dijit/form/TextBox"
+                        data-dojo-props="placeHolder:'Укажите URL сервера ArcGIS http://server/arcgis'"/>
+                </td>
+            </tr>
+			<tr>
+			<td align="left" style="padding-top:10px;">
+			<a target="_blank" href="http://cgis.allgis.org/miniportal/documentation/help.html#id43">Как это работает</a>
+			</td>
+			<td align="right" style="padding-top:10px; ">
+				<button id="agsdirURLsubmit" class="agsdirURLsubmit"
+				data-dojo-type="dijit/form/Button"
+				data-dojo-props="showLabel: true"
+				type="submit">
+				Найти ресурсы
+                </button>
+			</td>
+			</tr>
+        </tbody></table>
+                </div> <!-- form -->
+    </div> <!-- agsDirTopPane -->
+
+<!-- layers list -->
+    <div id="agsdirListContainer" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+    </div> <!-- agsdirListContainer -->
+
+</div>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://cgis.allgis.org/arcgis_js_api/library/3.7/3.7/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="http://cgis.allgis.org/arcgis_js_api/library/3.7/3.7/js/dojo/dijit/themes/claro/document.css">
+
+    <link rel="stylesheet" type="text/css" href="http://cgis.allgis.org/arcgis_js_api/library/3.7/3.7/js/dojo/dojox/layout/resources/FloatingPane.css">
+
+    <link rel="stylesheet" type="text/css" href="http://cgis.allgis.org/arcgis_js_api/library/3.7/3.7/js/esri/css/esri.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <!--[if IE]>
+      <link rel="stylesheet" type="text/css" href="css/ie.css" />
+    <![endif]-->
+    <script type="text/javascript">
+    var path_location = location.pathname.replace(/\/[^/]+$/, '');
+    var dojoConfig = {
+      parseOnLoad: true,
+      packages: [{
+        name: "esriTemplate",
+        location: path_location
+      }, {
+        name: "utilities",
+        location: path_location + '/javascript'
+      }, {
+        name: "apl",
+        location: path_location + '/apl'
+      },{
+        name: "templateConfig",
+        location: path_location
+      },{
+        name: "agsjs",
+        location: path_location + '/javascript/toc/agsjs'
+      }, {
+          name: "vs",
+          location: path_location + '/javascript/vs'
+      }
+      /*,{
+        name: "featureEditor",
+        location: path_location + '/javascript/featureEditor'
+      }*/]
+    };
+    </script>
+    <script type="text/javascript" src="http://cgis.allgis.org/arcgis_js_api/library/3.7/3.7/init.js">
+
+    </script>
+    <script type="text/javascript">
+      dojo.require("esri.layout");
+    </script>
+
+    <script type="text/javascript" src="javascript/layout.js">
+    </script>
+    <script type="text/javascript">
+      dojo.require("utilities.App");
+      dojo.require("templateConfig.commonConfig");
+
+
+
+      var i18n;
+      dojo.ready(function(){
+
+
+        i18n = dojo.i18n.getLocalization("esriTemplate","template");
+        var  defaults = {
+
+        //The ID for the map from ArcGIS.com
+        //webmap: "dbd1c6d52f4e447f8c01d14a691a70fe",
+        webmap: {
+            "item": {
+                "title": "Редактирование",
+                "extent": [[35.825383704322996, 56.86081861834739], [35.898257582802596, 56.87425920299731]]
+            },
+            "itemData": {
+                "operationalLayers": [
+                    {
+                        "url":          "http://cgis.allgis.org/arcgis/rest/services/map_Здания/MapServer",
+                        "id":           "mapserver0"
+                    }, {
+                        "url":          "http://cgis.allgis.org/arcgis/rest/services/noedit_Газовая_сеть/MapServer",
+                        "id":           "mapserver1"
+                    }
+                    /* {
+                        "url":          "http://cgis.allgis.org/arcgis/rest/services/map_Здания/MapServer",
+                        "id":           "mapBuildings",
+                        "visibility":   true,
+                        "opacity":      1,
+                        "title":        "Здания"
+                    }
+/*
+                   ,
+                    {
+                        "url":          "http://cgis.allgis.org/arcgis/rest/services/noedit_Рецензирование/MapServer",
+                        "id":           "mapRedline",
+                        "visibility":   true,
+                        "opacity":      1,
+                        "title":        "Рецензирование"
+                    }
+*/
+               ],
+                "baseMap":{
+                    "baseMapLayers":[{
+                        "opacity":      1,
+                        "visibility":   true,
+                        "url":          "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+                    }],
+                    "title":"WorldImagery"
+                },
+                "version":"1.9",
+                "applicationProperties":{
+                    "viewing":{
+                        "routing":{"enabled":true},
+                        "basemapGallery":{"enabled":true},
+                        "measure":{"enabled":true}}}
+            } // itemData
+        }, // webmap
+
+        //Modify this to point to your sharing service URL if you are using the portal
+        sharingurl: null,//for example: "http://www.arcgis.com",
+        //The id for the web mapping application item that contains configuration info - in most
+        ////When editing you need to specify a proxyurl (see below) if the service is on a different domain
+        //Specify a proxy url if you will be editing, using the elevation profile or have secure services or web maps that are not shared with everyone.
+        proxyurl: "",
+        //cases this will be null.
+        appid: "",
+        //set to true to display the title
+        displaytitle: true,
+        //Enter a title, if no title is specified, the webmap's title is used.
+        title: "",
+        //Enter a description for the application. This description will appear in the left pane
+        //if no description is entered the webmap description will be used.
+        description: "",
+        //specify an owner for the app - used by the print option. The default value will be the web map's owner
+        owner: '',
+        //Specify a color theme for the app. Valid options are gray,blue,purple,green and orange
+        theme: 'gray',
+        //Optional tools - set to false to hide the tool
+        //set to false to hide the zoom slider on the map
+        displayslider: true,
+        displaymeasure: false,
+        displaybasemaps: false,
+        displayoverviewmap: false,
+        displayeditor: true,
+        displaylegend: false,
+        displaysearch: false,
+        displaylayerlist: false,
+        displaybookmarks: false,
+        displaydetails: false,
+        displaytimeslider: false,
+        displayprint: false,
+        displayprintlegend: false,
+        displaytoc: true,
+        displayeditorgrid: false,
+        //i18n.viewer.main.scaleBarUnits,
+        //The elevation tool uses the  measurement tool to draw the lines. So if this is set
+        //to true then displaymeasure needs to be true too.
+        displayelevation: false,
+        //This option is used when the elevation chart is displayed to control what is displayed when users mouse over or touch the chart. When true, elevation gain/loss will be shown from the first location to the location under the cursor/finger.
+        showelevationdifference: false,
+        displayscalebar: true,
+        displayshare: false,
+        //Set to true to display the left panel on startup. The left panel can contain the legend, details and editor. Set to true to
+        //hide left panel on initial startup. 2
+        leftPanelVisibility: true,
+        //If the webmap uses Bing Maps data, you will need to provide your Bing Maps Key
+        bingmapskey: commonConfig.bingMapsKey,
+        //specify a group in ArcGIS.com that contains the basemaps to display in the basemap gallery
+        //example: title:'ArcGIS Online Basemaps' , owner:esri
+        basemapgroup: {
+          title: null,
+          owner: null
+        },
+        //Enter the URL's to the geometry service, print task and geocode service.
+        helperServices: commonConfig.helperServices,
+        //Set the label in the nls file for your browsers language
+        printlayouts: [{
+          layout: 'Letter ANSI A Landscape',
+          label: i18n.tools.print.layouts.label1,
+          format: 'PDF'
+        }, {
+          layout: 'Letter ANSI A Portrait',
+          label: i18n.tools.print.layouts.label2,
+          format: 'PDF'
+        }, {
+          layout: 'Letter ANSI A Landscape',
+          label: i18n.tools.print.layouts.label3,
+          format: 'PNG32'
+        }, {
+          layout: 'Letter ANSI A Portrait',
+          label: i18n.tools.print.layouts.label4,
+          format: 'PNG32'
+        }],
+        printlayout: false,
+        printformat: "PNG32",
+        //Specify the geocoder options. By default uses the geocoder widget with the default locators. If you specify a url value then that locator will be used.
+        placefinder: {
+          "url": "",
+          "countryCode":"",
+          "currentExtent":false,
+          "placeholder": "",
+          "singlelinefieldname":""
+        },
+        //when true locations searches use the current map extent.
+        searchextent: false,
+        //Set link text and url parameters if you want to display clickable links in the upper right-corner
+        //of the application.
+        //ArcGIS.com. Enter link values for the link1 and link2 and text to add links. For example
+        //url:'http://www.esri.com',text:'Esri'
+        link1: {
+          url: 'documentation/help.html',
+          text: 'Справка'
+        },
+        link2: {
+          url: 'http://www.allgis.org',
+          text: 'АлГИС'
+        },
+        //specify the width of the panel that holds the editor, legend, details
+        leftpanewidth: 350,
+        //Restrict the map's extent to the initial extent of the web map. When true users
+        //will not be able to pan/zoom outside the initial extent.
+        constrainmapextent: true,
+        //Provide an image and url for a logo that will be displayed as a clickable image
+        //in the lower right corner of the map. If nothing is specified then the esri logo will appear.
+        customlogo: {
+          image: 'images/algis_logo.png',
+          link: 'http://www.allgis.org'
+        },
+        //embed = true means the margins will be collapsed to just include the map no title or links
+        embed: false,
+        // Restrict zoom 0 - 19 : world -> street : min -> max
+        minZoom: 14,
+        maxZoom: 17
+      };
+
+        var app = new utilities.App(defaults);
+        app.init().then(function(options){
+            initMap(options);
+        });
+
+      });
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="javascript/featureeditor/featureeditor.css" />
+    <script type="text/javascript" src="javascript/featureeditor/featurelayertable.js"></script>
+  </head>
+
+  <body class="claro">
+    <div id="bc" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline', gutters:false"
+    style="width:100%; height:100%;padding:0;">
+      <!-- Header Section-->
+      <div id="header" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'">
+        <!--Title dyanmically generated -->
+        <div id="nav" style='display:none;'>
+          <!-- links are dynamically generated-->
+          <ul>
+            <li id="link1List"></li>
+            <li>|</li>
+            <li id="link2List"></li>
+          </ul>
+        </div>
+      </div>
+      <!--End Header-->
+      <!-- Main Content Section (map, toolbars, left panel)-->
+      <div id="mainWindow" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'"
+      style="width:100%;height:100%;">
+        <div data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline',gutters:false"
+        style="width:100%;height:100%;padding:0;">
+          <!-- Toolbar (Search Basemap Measure)-->
+          <div id="toolbarContainer_bv" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"top"'>
+            <div data-dojo-type="dijit.Toolbar">
+              <div id="webmap-toolbar-left">
+                <!--Toolbar buttons (Legend, Details, Edit) created dynamically-->
+              </div>
+              <div id="webmap-toolbar-right">
+                <!--create the search tool-->
+              </div>
+              <div id="webmap-toolbar-center">
+                <!--Basemap,measure,share,time and layer list tools added if enabled-->
+              </div>
+            </div>
+          </div>
+          <!--End Toolbar-->
+          <!--Left Panel-->
+          <div data-dojo-type="dijit.layout.BorderContainer" id="leftPane" data-dojo-props="design:'headline', gutters:false,region:'left'"
+          style="height:100%;padding:0;display:none;"></div>
+          <!--End Left Panel-->
+          <!-- Map Section -->
+          <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"center"' dir="ltr">
+            <div id="logo" class="logo" style="display:none;">
+              <!--If a logo is specified in config section then the logo will be added
+              to the map-->
+            </div>
+            <!--Floating window that contains the measure dijit-->
+            <div id="floater">
+              <div id="measureDiv"></div>
+            </div>
+            <!--Floating window contains the time slider-->
+            <div id="timeFloater" style='display:none;'></div>
+          </div>
+          <!--end Map section-->
+        </div>
+      </div>
+      <!--div id="bottomPane" dojotype="dijit.layout.ContentPane" region="bottom"
+      gutters="false" style="display:none;margin:10px 5px;width:auto;height:275px;background-color:white;"></div-->
+
+<div id="bottomPane"
+    data-dojo-type="dijit/layout/ContentPane"
+    data-dojo-props="region:'bottom', gutters:false"
+    style="display:none; width: auto; height:275px; padding:0;">
+<div style="float:right;clear:both; margin-top: 5px; margin-right: 5px;"
+    id="bottomPaneCloseBtn">
+    <a title="Закрыть" alt="Закрыть" href="#" onclick="JavaScript:hideAttribsTable();">
+        <img src="images/closepanel.png" border="0"/>
+    </a>
+</div>
+<div id="entry-div" style="display: none;">
+    <div style="border-color: white; border: 1px solid #e1e1e1;">
+        <div>
+            <div class="entryDivNameCol">Feature Services</div>
+            <div class="entryDivFieldCol"><input id="fsEndpoint" type="text"
+                value="http://cgis.allgis.org/arcgis/rest/services/edit_Рецензирование/FeatureServer/0" />
+            </div>
+        </div>
+        <div class="clear" style="clear: both"></div>
+        <div >
+            <div class="entryDivNameCol">Query String</div>
+            <div class="entryDivFieldCol"><input id="query-string" type="text" /> </div>
+        </div>
+        <div class="clear" style="clear: both"></div>
+        <div >
+            <div class="entryDivNameCol">Outfields</div>
+            <div class="entryDivFieldCol"><input id="outfields-string" type="text" /> </div>
+        </div>
+        <div class="clear" style="clear: both"></div>
+        <div class="loadBtnDiv">
+            <button id="load-btn" onclick="featureEditor.init(true)">Load</button>
+        </div>
+    </div>
+</div> <!-- entry-div -->
+
+<script type="text/javascript">
+    function loadPrevPage() {
+        featureEditor.pageInfo.currentPage--;
+        featureEditor.load();
+    };
+    function loadNextPage() {
+        featureEditor.pageInfo.currentPage++;
+        featureEditor.load();
+    };
+</script>
+
+<div id="paginator-div">
+    &nbsp;&nbsp;Total records =
+      <span id="recordsInfo">
+        0
+      </span>
+    |
+    <button dojoType="dijit.form.Button" onclick="loadPrevPage();">
+        Prev Page
+    </button>
+
+      <span id="pageInfo">
+      </span>
+
+    <button dojoType="dijit.form.Button" onclick="loadNextPage();">
+        Next Page
+    </button>
+    |
+    Current record
+    <button dojoType="dijit.form.Button" onclick="featureEditor.saveCurrentRecord();">
+        Save
+    </button>
+    <button dojoType="dijit.form.Button" onclick="featureEditor.resetCurrentRecord();">
+        Undo
+    </button>
+    <button dojoType="dijit.form.Button" onclick="featureEditor.deleteCurrentRecord();">
+        Delete
+    </button>
+    <button data-dojo-type="dijit.form.Button" onclick="featureEditor.zoomToCurrentRecord();">
+        Zoom
+    </button>
+    <!-- input type="checkbox" id="zoomToSelectedFeature" checked-no
+        data-dojo-type="dijit/form/CheckBox">
+    </input> <label for="zoomToSelectedFeature">Zoom to selected</label -->
+</div> <!-- paginator-div -->
+
+<div id="add-grid" class="grid2" style="display: none;"></div>
+
+<div id="grid" class="grid1"></div>
+
+<div id="grid-legend-parent" style="display: none;">
+    <label>Grid Legend</label>
+    <div id="grid-legend" style="padding-top: 15px;"></div>
+</div>
+</div> <!-- bottomPane -->
+
+      <!-- End Main Content section-->
+    </div>
+  </body>
+
+</html>

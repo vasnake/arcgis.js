@@ -1,0 +1,84 @@
+.layersLibTV button {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: red;
+    background-color: yellow;
+}
+/* .claro .dijitSelect .dijitArrowButtonInner, .claro .dijitComboBox .dijitArrowButtonInner { */
+.claro .layersLibTV .dijitArrowButtonInner {
+    background-image: url("../../../../images/buttonArrows.png");
+    background-position: -151px 53% !important;
+}
+.libTVLayer {
+    float: left;
+    width: 46%;
+    padding: 2%;
+}
+.libTVLayerTile {
+    width: 100%;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 7px #000000;
+    cursor: pointer;
+}
+.libTVLayerDescr {
+    display: block;
+    height: 2.7em;
+    overflow: hidden;
+}
+.claro #addLayersFromWebUIForm .dijitSelect .dijitArrowButton {
+	background-image: url("../../../../images/buttonArrows.png");
+	background-position: -151px 53% !important;
+}
+
+/*
+################################################################################
+	agsdir
+*/
+
+.agsdirLayerContainer .layerAddButton {
+	float: right;
+}
+
+.agsdirLayerTooltip {
+	max-width: 300px;
+	width: 300px;
+}
+
+.agsdirLayerTooltip .dijitTooltipContents.dijitTooltipFocusNode {
+	overflow: hidden;
+}
+
+.agsdirLayerTooltip .tooltipLink {
+	/*display: block;*/
+	
+}
+
+/*.agsdirLayerName .dijitButtonText {
+
+.agsdirLayerName .dijitButtonContents {
+	text-align: left;
+}
+.agsdirLayerName .dijitButtonNode {
+	width: 95%;
+}*/
+
+.agsdirLayerName .dijitButtonContents {
+	text-align: left;
+}
+.agsdirLayerName .dijitButtonText{
+	text-align: left;
+	border-bottom: 1px dashed #999;
+    text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.agsdirLayerName .dijitButtonNode {
+	width: 95%;
+	padding: 0;
+	border: none;
+	background: none;
+}
+.claro .agsdirLayerName .dijitArrowButtonInner {
+    display: none !important;
+}

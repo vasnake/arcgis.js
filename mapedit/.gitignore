@@ -1,0 +1,6 @@
+.project
+jsapi_vsdoc10_v36.js
+.tmp*
+javascript/vs/obj/*.map
+
+t/

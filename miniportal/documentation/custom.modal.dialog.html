@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title></title>
+
+
+<style type="text/css">
+pre {
+  background-color: #ffffcc;
+}
+
+</style></head>
+<body style="direction: ltr;" lang="ru-RU">
+<p>Как использовать кастомное модальное окно.</p>
+<p>Сразу необходимо предупредить: модальное окно модально
+понарошку. Не совсем модальное. Оно выглядит как модальное и блокирует
+действия пользователя, но не в состоянии блокировать выполнение
+яваскрипта. Се ля ви.</p>
+<p>Как пользоваться.</p>
+<p>В своем коде вы вызываете окно так:</p>
+<pre>vslib.alert("Карта сохранена, ссылку можно скопировать из адресной строки браузера.", true);</pre>
+<p>Первый параметр - сообщение для показа пользователю, второй
+параметр - флаг вывода настоящего модального окна. То есть, в
+приведенном примере будет показан обычный, настоящий alert. Если вы
+хотите красивое окно, вмето true напишите false.</p>
+<p>Чтобы этот код сработал, надо подключить dojo модуль. Сделать
+это можно так:</p>
+<pre>var vslib;<br>require(["vs/mpvlib"], function(mpvlib) {<br>&nbsp;&nbsp;&nbsp; try {vslib.log('try vslib');} catch(ex) {vslib = new mpvlib();}<br>&nbsp;&nbsp;&nbsp; vslib.log('vslib ready');<br>});<br></pre>
+<p>Возможно, понадобится еще определить неймспейс:</p>
+<pre>var path_location = location.pathname.replace(/\/[^/]+$/, '');<br>var dojoConfig = {<br>&nbsp; parseOnLoad: true,<br>&nbsp; packages: [{<br>&nbsp;&nbsp;&nbsp; name: "agsjs",<br>&nbsp;&nbsp;&nbsp; location: path_location + '/javascript/toc/agsjs'<br>&nbsp;&nbsp;&nbsp; }, {<br>&nbsp;&nbsp;&nbsp; name: "vs",<br>&nbsp;&nbsp;&nbsp; location: path_location + '/javascript/vs'<br>&nbsp;&nbsp;&nbsp; }]<br>};</pre>
+<p>Чтобы провести кастомизацию диалогового окна, поправьте код</p>
+<pre> // customize your message here<br> var params = {<br> title: "Сообщение МП",<br> content: '&lt;p&gt;' + (msg || "Ахтунг!") + '&lt;/p&gt;'<br> };<br> var self = this;</pre>
+в функции
+<pre>alert: function(msg, realblock) {</pre>
+<p>в файле</p>
+<pre>miniportal\javascript\vs\mpvlib.js</pre>
+<p>добавив/убрав необходимую вам разметку HTML.</p>
+<p>Вот и всё.</p>
+<p></p>
+<p></p>
+</body></html>
